@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Calibración</title>
+	<link rel="stylesheet" href="eyetrackstyle.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script async type="text/javascript" src="webgazer2.js"> </script>
+	
+	
+</head>
+
+<body>
+	<div class="d-flex justify-content-end">
+		<p id="Exactitud">
+			<a href="#">Aun no esta calibrado</a>
+		</p>
+		<a href="#" class="btn-sm" onclick="Restart()"> Recalibrar</a>
+		<a href="#" class="btn-sm" onclick="Guardar(infoMirada); Guardar(soloTiempo);"> Guardar </a>
+		<!-- <input type="file" class="btn-sm" id="fondo" onChange="readUrl(this)"> -->
+	</div>
+	<canvas id="plotting_canvas" width="500" height="500" style="cursor: crosshair;"> </canvas>
+	
+	<script src="js/jquery.min.js"> </script>
+	<script src="js/sweetalert.min.js"> </script>
+	<script src="cal/prin.js"> </script>
+	
+	<div class="calibrationDiv">
+		<input type="button" class="Calibracion" id="Pt1"></input>
+		<input type="button" class="Calibracion" id="Pt2"></input>
+		<input type="button" class="Calibracion" id="Pt3"></input>
+		<input type="button" class="Calibracion" id="Pt4"></input>
+		<input type="button" class="Calibracion" id="Pt5"></input>
+		<input type="button" class="Calibracion" id="Pt6"></input>
+		<input type="button" class="Calibracion" id="Pt7"></input>
+		<input type="button" class="Calibracion" id="Pt8"></input>
+		<input type="button" class="Calibracion" id="Pt9"></input>
+	</div>
+
+  <!-- Modal -->
+  <div id="helpModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-footer">
+          <button id="closeBtn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="Restart()">Calibrar</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+<script src="jss/bootstrap.min.js"> </script>
+
+
+	
+</body>
+</html>
