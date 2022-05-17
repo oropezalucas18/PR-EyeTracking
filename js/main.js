@@ -191,5 +191,4 @@ function Restart() {
 
 window.addEventListener('load', () => {
     downloadButton = document.querySelector('.download-video');
-
 })
