@@ -7,6 +7,8 @@ let stream = null,
 downloadButton = null;
 var gazeData = [];
 var onlyTime = [];
+let csvString = "";
+var recordingStarted = false;
 
 window.onload = function () {
     setupStream();
@@ -21,13 +23,15 @@ window.onload = function () {
                 var predy = data["y"];
                 var elapsedTime = clock;
 
-                // push to gazeData array
-                gazeData.push([elapsedTime, predx, predy]);
-
+                // push to gazeData array if recording started
+                if(recordingStarted == true) {
+                    gazeData.push([elapsedTime, predx, predy]);
+                    console.log("TEST - " + gazeData.predx + ", " + gazeData.predy);
+                }
+                
                 // push to onlyTime array
                 onlyTime.push([elapsedTime]);
-
-                console.log(data["x"] + ", " + data["y"] + ", " + clock);
+                
             }
 
             //   console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
@@ -82,10 +86,13 @@ async function setupStream() {
 
 async function startRecording() {
     if (stream && audio) {
+        recordingStarted = true;
         mixedStream = new MediaStream([...stream.getTracks(), ...audio.getTracks()]);
         recorder = new MediaRecorder(mixedStream);
         recorder.ondataavailable = handleDataAvailable;
         recorder.start(1000);
+
+        
 
         console.log('Recording started');
     } else {
@@ -94,7 +101,31 @@ async function startRecording() {
 }
 
 function stopRecording() {
+    recordingStarted = false;
+    saveDateToCsv();
     recorder.stop();
+}
+
+function saveDateToCsv() {
+    csvString = [
+        [
+            "X","Y"
+        ],
+        ...gazeData.map(item => [
+            item.predx,
+            item.predy
+        ])
+    ]
+    .map(e => e.join(","))
+    .join("\n"); 
+
+    var blob = new Blob([csvString], {type: 'text/csv;charset=utf-8;'});
+    var url = URL.createObjectURL(blob);
+    
+    var pom = document.createElement('a');
+    pom.href = url;
+    pom.setAttribute('download', 'csvData.csv');
+    pom.click();
 }
 
 function handleDataAvailable(e) {
@@ -160,5 +191,4 @@ function Restart() {
 
 window.addEventListener('load', () => {
     downloadButton = document.querySelector('.download-video');
-
 })
