@@ -9,7 +9,6 @@ var gazeData = [];
 var onlyTime = [];
 
 window.onload = function () {
-    setupStream();
     //start the webgazer tracker
     webgazer.setRegression('ridge') /* currently must set regression and tracker */
         .setTracker('clmtrackr')
@@ -20,14 +19,13 @@ window.onload = function () {
                 var predx = data["x"];
                 var predy = data["y"];
                 var elapsedTime = clock;
-
-                // push to gazeData array
-                gazeData.push([elapsedTime, predx, predy]);
+                // push to gazeData array if recording started
+                gazeData.push([predx, predy]);
+                console.log("TEST - " + predx + ", " + predy);
 
                 // push to onlyTime array
                 onlyTime.push([elapsedTime]);
 
-                console.log(data["x"] + ", " + data["y"] + ", " + clock);
             }
 
             //   console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
@@ -87,6 +85,8 @@ async function startRecording() {
         recorder.ondataavailable = handleDataAvailable;
         recorder.start(1000);
 
+
+
         console.log('Recording started');
     } else {
         console.warn('No stream available.');
@@ -100,8 +100,6 @@ function stopRecording() {
 function handleDataAvailable(e) {
     chunks.push(e.data);
 }
-
-
 
 //setup video feedback
 function setupVideoFeedback() {
@@ -122,25 +120,24 @@ function saveGaze(expData) {
     const blob = new Blob(chunks, { 'type': 'video/mp4' });
     chunks = [];
 
-    var csv = '';
+    var csvString = '';
     expData.forEach(function (row) {
-        csv += row.join(',');
-        csv += "\n";
+        csvString += row.join(',');
+        csvString += "\n";
     });
 
     downloadButton.href = URL.createObjectURL(blob);
     downloadButton.download = 'video.mp4';
     downloadButton.disabled = false;
 
-
     stream.getTracks().forEach((track) => track.stop());
     audio.getTracks().forEach((track) => track.stop());
     console.log('Recording stopped');
 
     var hiddenElement = document.createElement('a');
-    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csv);
+    hiddenElement.href = 'data:text/csv;charset=utf-8,' + encodeURI(csvString);
     hiddenElement.target = '_blank';
-    hiddenElement.download = 'gazeData.csv';
+    hiddenElement.download = 'csvData.csv';
     hiddenElement.click();
 }
 
@@ -160,5 +157,4 @@ function Restart() {
 
 window.addEventListener('load', () => {
     downloadButton = document.querySelector('.download-video');
-
 })

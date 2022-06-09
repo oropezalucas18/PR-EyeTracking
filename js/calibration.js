@@ -19,8 +19,8 @@ function ClearCanvas() {
 function PopUpInstruction() {
   ClearCanvas();
   swal({
-    title: "Calibration",
-    text: "Please click on each of the 9 points on the screen. You must click on each point 5 times till it goes yellow. This will calibrate your eye movements.",
+    title: "Calibración",
+    text: "Por favor, haga click en cada uno de los 13 puntos que apareceran en la pantalla. Debe hacer click 10 veces en cada punto (mirando donde hace click) hasta que se vuelva de color verde. Esto calibrara los movimientos de los ojos.",
     buttons: {
       cancel: false,
       confirm: true
@@ -54,22 +54,22 @@ $(document).ready(function () {
     }
     CalibrationPoints[id]++; // increments values
 
-    if (CalibrationPoints[id] == 5) { //only turn to yellow after 5 clicks
+    if (CalibrationPoints[id] == 10) { //only turn to yellow after 5 clicks
       $(this).css('background-color', 'yellow');
       $(this).prop('disabled', true); //disables the button
       PointCalibrate++;
-    } else if (CalibrationPoints[id] < 5) {
+    } else if (CalibrationPoints[id] < 10) {
       //Gradually increase the opacity of calibration points when click to give some indication to user.
-      var opacity = 0.2 * CalibrationPoints[id] + 0.2;
+      var opacity = 0.1 * CalibrationPoints[id] + 0.1;
       $(this).css('opacity', opacity);
     }
 
     //Show the middle calibration point after all other points have been clicked.
-    if (PointCalibrate == 8) {
+    if (PointCalibrate == 12) {
       $("#Pt5").show();
     }
 
-    if (PointCalibrate >= 9) { // last point is calibrated
+    if (PointCalibrate >= 13) { // last point is calibrated
       //using jquery to grab every element in Calibration class and hide them except the middle point.
       $(".Calibration").hide();
       $("#Pt5").show();
@@ -80,8 +80,8 @@ $(document).ready(function () {
 
       // notification for the measurement process
       swal({
-        title: "Calculating measurement",
-        text: "Please don't move your mouse & stare at the middle dot for the next 5 seconds. This will allow us to calculate the accuracy of our predictions.",
+        title: "Calculando medida de calibración",
+        text: "Por favor no mueva el mouse y mire fijamente al medio del punto por los siguientes 5 segundos. Esto peritira calcular la precision de las predicciones.",
         closeOnEsc: false,
         allowOutsideClick: false,
         closeModal: true
@@ -96,20 +96,25 @@ $(document).ready(function () {
             stop_storing_points_variable(); // stop storing the prediction points
             var past50 = get_points() // retrieve the stored points
             var precision_measurement = calculatePrecision(past50);
-            var accuracyLabel = "<a>Accuracy | " + precision_measurement + "%</a>";
+            var accuracyLabel = "<a>Precision | " + precision_measurement + "%</a>";
             document.getElementById("Accuracy").innerHTML = accuracyLabel; // Show the accuracy in the nav bar.
             swal({
-              title: "Your accuracy measure is " + precision_measurement + "%",
+              title: "Tu medida de precision es: " + precision_measurement + "%",
               allowOutsideClick: false,
               buttons: {
-                cancel: "Recalibrate",
+                cancel: "Recalibrar",
                 confirm: true,
               }
             }).then(isConfirm => {
               if (isConfirm) {
                 //clear the calibration & hide the last middle button
+                setupStream();
                 ClearCanvas();
-                isCalibrated = true;
+                sleep(8000).then(() => {
+                  isCalibrated = true;
+                })
+
+
               } else {
                 //use restart function to restart the calibration
                 ClearCalibration();
@@ -138,7 +143,7 @@ function ShowCalibrationPoint() {
 function ClearCalibration() {
   window.localStorage.clear();
   $(".Calibration").css('background-color', 'red');
-  $(".Calibration").css('opacity', 0.2);
+  $(".Calibration").css('opacity', 0.1);
   $(".Calibration").prop('disabled', false);
 
   CalibrationPoints = {};
