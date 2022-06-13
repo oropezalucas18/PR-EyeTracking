@@ -81,7 +81,7 @@ $(document).ready(function () {
       // notification for the measurement process
       swal({
         title: "Calculando medida de calibración",
-        text: "Por favor no mueva el mouse y mire fijamente al medio del punto por los siguientes 5 segundos. Esto peritira calcular la precision de las predicciones.",
+        text: "Por favor no mueva el mouse y mire fijamente al medio del punto por los siguientes 5 segundos. Esto permitira calcular la precisión de las predicciones.",
         closeOnEsc: false,
         allowOutsideClick: false,
         closeModal: true
