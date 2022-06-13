@@ -13,38 +13,32 @@ Instructions on use can be found in the README repository.
 
 <head>
   <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
-  <TITLE>WebGazer Demo</TITLE>
-  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <TITLE>Calibracion</TITLE>
+  <link rel="stylesheet" type="text/css" href="./css2/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous" />
-  <script async type="text/javascript" src="./webgazer.js"></script>
-  <style>
-    #testImage {
-      background-image: url('');
-      background-size: cover;
+  <script async type="text/javascript" src="./webgazer2.js"></script>
+  <!-- <style>
+    #testImage{
+      background-image:url('');
+      background-size:cover;
       background-position: center;
-      height: 100vh;
+      height: 100vh; 
       width: 100%;
     }
-  </style>
+  </style> -->
 </head>
 
 <body LANG="en-US" LINK="#0000ff" DIR="LTR" id="testImage">
-  <div class="d-flex justify-content-end">
+<div class="d-flex justify-content-end">
     <p id="Accuracy">
-      <a href="#">Not Yet Calibrate</a>
+      <a href="#">Aun no esta calibrado</a>
     </p>
-    <a href="#" class="btn-sm" onclick="Restart()">Recalibrate</a>
-<<<<<<< HEAD
-    <a href="#" class="btn-sm" onclick="saveGaze(gazeData); saveGaze(onlyTime);">Save</a>
-=======
-    <a href="#" class="btn-sm" onclick="saveGaze(gazeData);">Save</a>
->>>>>>> 6540265d684b9ac41c17f743efcbc510e50838f8
-    <a href="#" class="btn-sm download-video " onclick="">Descargar Video</a>
-
-    <input class="btn-sm" type="file" id="backImage" onchange="readURL(this);">
+    <a href="#" class="btn-sm" onclick="Restart()">Recalibrar</a>
+    <a href="#" class="btn-sm" onclick="saveGaze(gazeData); saveGaze(onlyTime);">Guardar</a>
+   <!--  <input class="btn-sm" type="file" id="backImage" onchange="readURL(this);">  -->
   </div>
-
+  
   <canvas id="plotting_canvas" width="500" height="500" style="cursor:crosshair;"></canvas>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
@@ -95,17 +89,14 @@ Instructions on use can be found in the README repository.
     <input type="button" class="Calibration" id="Pt7"></input>
     <input type="button" class="Calibration" id="Pt8"></input>
     <input type="button" class="Calibration" id="Pt9"></input>
-<<<<<<< HEAD
-=======
     <input type="button" class="Calibration" id="Pt10"></input>
 		<input type="button" class="Calibration" id="Pt11"></input>
 		<input type="button" class="Calibration" id="Pt12"></input>
 		<input type="button" class="Calibration" id="Pt13"></input>
->>>>>>> 6540265d684b9ac41c17f743efcbc510e50838f8
-    <img id="blah" src="" alt="your image" />
+    <!-- <img id="blah" src="" alt="your image" /> -->
   </div>
 
-
+  
 
   <!-- Modal -->
   <div id="helpModal" class="modal fade" role="dialog">
@@ -114,8 +105,8 @@ Instructions on use can be found in the README repository.
       <!-- Modal content -->
       <div class="modal-content">
         <div class="modal-footer">
-          <button id="closeBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="Restart()">Calibrate</button>
+          <button id="closeBtn" type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="Restart()">Calibrar</button>
         </div>
       </div>
 
@@ -123,20 +114,20 @@ Instructions on use can be found in the README repository.
   </div>
 
 
-  <script>
+ <!-- <script>  
     document.getElementById('backImage').addEventListener('change', readURL, true);
-    function readURL() {
-      var file = document.getElementById("backImage").files[0];
-      var reader = new FileReader();
-      reader.onloadend = function () {
-        document.getElementById('testImage').style.backgroundImage = "url(" + reader.result + ")";
+      function readURL(){
+        var file = document.getElementById("backImage").files[0];
+        var reader = new FileReader();
+        reader.onloadend = function(){
+            document.getElementById('testImage').style.backgroundImage = "url(" + reader.result + ")";        
+        }
+        if(file){
+            reader.readAsDataURL(file);
+          }else{
+          }
       }
-      if (file) {
-        reader.readAsDataURL(file);
-      } else {
-      }
-    }
-  </script>
+  </script> -->
   <!-- Latest compiled JavaScript -->
   <script src="./js/resize_canvas.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"
