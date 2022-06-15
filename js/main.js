@@ -9,7 +9,6 @@ var gazeData = [];
 var onlyTime = [];
 
 window.onload = function () {
-    setupStream();
     //start the webgazer tracker
     webgazer.setRegression('ridge') /* currently must set regression and tracker */
         .setTracker('clmtrackr')
@@ -23,11 +22,11 @@ window.onload = function () {
 
                 // push to gazeData array if recording started
                 gazeData.push([predx, predy]);
-                console.log("TEST - " + predx + ", " + predy);
-                
+                console.log("TEST - " + elapsedTime);
+
                 // push to onlyTime array
                 onlyTime.push([elapsedTime]);
-                
+
             }
 
             //   console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
@@ -81,13 +80,13 @@ async function setupStream() {
 }
 
 async function startRecording() {
-    if (stream && audio) {    
+    if (stream && audio) {
         mixedStream = new MediaStream([...stream.getTracks(), ...audio.getTracks()]);
         recorder = new MediaRecorder(mixedStream);
         recorder.ondataavailable = handleDataAvailable;
         recorder.start(1000);
 
-        
+
 
         console.log('Recording started');
     } else {
@@ -95,7 +94,7 @@ async function startRecording() {
     }
 }
 
-function stopRecording() {        
+function stopRecording() {
     recorder.stop();
 }
 
