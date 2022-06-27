@@ -1,5 +1,5 @@
 body {
-    min-width:600px!important;
+    min-width: 600px !important;
 }
 
 /* Video Feed Styling */
@@ -12,17 +12,18 @@ body {
     left: 320px;
     z-index: 0;
     box-shadow: 0px 3px 5px #ddd;
-    border:0px;
+    border: 0px;
     background-color: #fff;
 }
 
-#Accuracy a{
+#Accuracy a {
     background-color: #222;
     color: #eee;
     left: -15px;
     padding-left: 80px;
     padding-right: 40px;
 }
+
 #Accuracy {
     background-color: #222;
     padding-left: inherit;
@@ -31,6 +32,7 @@ body {
 li {
     padding-left: 50px;
 }
+
 .navbar-right li {
     padding-right: 20px;
 }
@@ -41,20 +43,23 @@ li {
     background: none;
     color: #777;
 }
+
 .helpBtn a {
     background: none;
     color: #777;
 }
+
 .helpBtn a:hover {
-    color: black!important;
+    color: black !important;
     text-decoration: none;
 }
+
 .modal-header {
-    border-bottom: none!important;
+    border-bottom: none !important;
 }
 
 /* Calibration button styling */
-.Calibration{
+.Calibration {
     width: 20px;
     height: 20px;
     -webkit-border-radius: 25px;
@@ -64,60 +69,53 @@ li {
     opacity: 0.2;
     border-color: black;
     border-style: solid;
-    position:fixed;
+    position: fixed;
+    z-index: 9;
 }
 
 /* Calibration point position */
-#Pt1{
+#Pt1 {
     top: 70px;
-    left:340px;
+    left: 340px;
 }
-#Pt2{
+
+#Pt2 {
     top: 70px;
-    left:50vw;
+    left: 50vw;
     margin-left: 340;
 }
-#Pt3{
+
+#Pt3 {
     top: 70px;
-    right:2vw;
+    right: 2vw;
 }
-#Pt4{
-    top:50vh;
-    left:2vw;
+
+#Pt4 {
+    top: 50vh;
+    left: 2vw;
 }
-#Pt5{
+
+#Pt5 {
     top: 50vh;
     left: 50vw;
 }
-#Pt6{
+
+#Pt6 {
     top: 50vh;
-    right:2vw;
+    right: 2vw;
 }
-#Pt7{
-    bottom:2vw;
+
+#Pt7 {
+    bottom: 2vw;
     left: 2vw;
 }
-#Pt8{
-    bottom:2vw;
-    left:50vw;
+
+#Pt8 {
+    bottom: 2vw;
+    left: 50vw;
 }
-#Pt9{
-    bottom:2vw;
-    right:2vw;
-}
-#Pt10{
-    top: 35vh;
-    left:400px;
-}
-#Pt11{
-    top: 35vh;
-    right:400px;
-}
-#Pt12{
-    bottom: 30vh;
-    left:400px;
-}
-#Pt13{
-    bottom: 30vh;
-    right:400px;
+
+#Pt9 {
+    bottom: 2vw;
+    right: 2vw;
 }

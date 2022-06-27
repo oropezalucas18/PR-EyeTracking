@@ -1,19 +1,10 @@
 <!DOCTYPE html>
-<!--
-This is an example HTML that shows how WebGazer can be used on a website.
-This file provides the additional features:
-  * An integrated, intuitive and sleek action bar with an informative "help" module accessible at all times
-  * Structured 9-point calibration system
-  * Accuracy measure of predictions based on calibration process
-  * Video feedback regarding face positioning
-  * Improved eye predictions visible to the user
-Instructions on use can be found in the README repository.
--->
+
 <html>
 
 <head>
   <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
-  <TITLE>WebGazer Demo</TITLE>
+  <TITLE>Eyetracking Univalle</TITLE>
   <link rel="stylesheet" type="text/css" href="./css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
     integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous" />
@@ -35,13 +26,14 @@ Instructions on use can be found in the README repository.
       <a href="#">Not Yet Calibrate</a>
     </p>
     <a href="#" class="btn-sm" onclick="Restart()">Recalibrate</a>
-    <a href="#" class="btn-sm" onclick="saveGaze(gazeData); saveGaze(onlyTime);">Save</a>
+    <a href="#" class="btn-sm" onclick="saveGaze(gazeData)">Save</a>
     <a href="#" class="btn-sm download-video " onclick="">Descargar Video</a>
-
-    <input class="btn-sm" type="file" id="backImage" onchange="readURL(this);">
+    <input id="Pt21" type="url" id="link">
+    <input id="Pt22" class="btn-sm" type="button" id="backImage" value="Cargar Link" onclick="readLink()">
+    <input id="Pt20" class="btn-sm" type="file" id="backImage" onchange="readURL(this);">
   </div>
 
-  <canvas id="plotting_canvas" width="500" height="500" style="cursor:crosshair;"></canvas>
+  <canvas id="plotting_canvas" width="500" height="500" style="cursor:crosshair;position:fixed;z-index: 9;"></canvas>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
     integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -52,33 +44,6 @@ Instructions on use can be found in the README repository.
   <script src="./js/calibration.js"></script>
   <script src="./js/precision_calculation.js"></script>
   <script src="./js/precision_store_points.js"></script>
-
-
-  <!-- <nav class="navbar navbar-light bg-light" id="webgazerNavbar" style="width:5rem;">
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-  
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item" id="Accuracy">
-          <a>Not yet Calibrated</a>
-        </li>
-
-        <li class="nav-item" onclick="Restart()">
-          <a class="nav-link" href="#">Recalibrate</a>
-        </li>
-
-        <li class="nav-item" onclick="saveGaze()">
-          <a class="nav-link" href="#">Save</a>
-        </li>
-
-        <li class="nav-item">
-          <input type='file' onchange="readURL(this);" />
-        </li>
-      </ul>
-    </div>
-  </nav> -->
 
   <!-- Calibration points -->
   <div class="calibrationDiv">
@@ -91,14 +56,14 @@ Instructions on use can be found in the README repository.
     <input type="button" class="Calibration" id="Pt7"></input>
     <input type="button" class="Calibration" id="Pt8"></input>
     <input type="button" class="Calibration" id="Pt9"></input>
-    <input type="button" class="Calibration" id="Pt10"></input>
-    <input type="button" class="Calibration" id="Pt11"></input>
-    <input type="button" class="Calibration" id="Pt12"></input>
-    <input type="button" class="Calibration" id="Pt13"></input>
     <img id="blah" src="" alt="your image" />
   </div>
 
-
+  <div>
+    <iframe id="Pt80" class="Test" src=""
+      style="position:fixed; top: 35px; left:0; bottom:0; right:0; width:100%; height:100%; border:none; padding:0; overflow:hidden; z-index:9; "
+      width="100%" height="100%"></iframe>
+  </div>
 
   <!-- Modal -->
   <div id="helpModal" class="modal fade" role="dialog">
@@ -128,6 +93,13 @@ Instructions on use can be found in the README repository.
         reader.readAsDataURL(file);
       } else {
       }
+    }
+  </script>
+
+  <script>
+    function readLink() {
+      var link = document.getElementById('Pt21').value;
+      document.getElementById('Pt80').src = link;
     }
   </script>
   <!-- Latest compiled JavaScript -->

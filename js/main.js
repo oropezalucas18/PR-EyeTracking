@@ -7,6 +7,7 @@ let stream = null,
 downloadButton = null;
 var gazeData = [];
 var onlyTime = [];
+var link;
 
 window.onload = function () {
     //start the webgazer tracker
@@ -20,12 +21,25 @@ window.onload = function () {
                 var predy = data["y"];
                 var elapsedTime = clock;
                 // push to gazeData array if recording started
-                gazeData.push([predx, predy]);
-                console.log("TEST - " + predx + ", " + predy);
+                gazeData.push([predx, predy, Math.round(clock)]);
+                console.log("TEST - " + predx + ", " + predy + ", " + Math.round(clock));
 
                 // push to onlyTime array
                 onlyTime.push([elapsedTime]);
 
+            } else {
+                if (data != null && data["x"] > 0 && data["y"] > 0 && isCalibrated2 && data["x"] <= screen.width && data["y"] <= screen.height) {
+                    var predx = data["x"];
+                    var predy = data["y"];
+                    var elapsedTime = clock;
+                    // push to gazeData array if recording started
+                    gazeData.push([predx, predy, Math.round(clock)]);
+                    console.log("TEST - " + predx + ", " + predy + ", " + Math.round(clock));
+
+                    // push to onlyTime array
+                    onlyTime.push([elapsedTime]);
+
+                }
             }
 
             //   console.log(clock); /* elapsed time in milliseconds since webgazer.begin() was called */
@@ -101,6 +115,8 @@ function handleDataAvailable(e) {
     chunks.push(e.data);
 }
 
+
+
 //setup video feedback
 function setupVideoFeedback() {
     if (stream) {
@@ -115,9 +131,10 @@ function setupVideoFeedback() {
 function handleDataAvailable(e) {
     chunks.push(e.data);
 }
+
 //  exporting data to .csv
 function saveGaze(expData) {
-    const blob = new Blob(chunks, { 'type': 'video/mp4' });
+    const blob = new Blob(chunks, { 'type': 'video/webm' });
     chunks = [];
 
     var csvString = '';
@@ -127,7 +144,7 @@ function saveGaze(expData) {
     });
 
     downloadButton.href = URL.createObjectURL(blob);
-    downloadButton.download = 'video.mp4';
+    downloadButton.download = 'video.webm';
     downloadButton.disabled = false;
 
     stream.getTracks().forEach((track) => track.stop());
@@ -154,6 +171,8 @@ function Restart() {
     ClearCalibration();
     PopUpInstruction();
 }
+
+
 
 window.addEventListener('load', () => {
     downloadButton = document.querySelector('.download-video');

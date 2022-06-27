@@ -3,12 +3,16 @@
 var PointCalibrate = 0;
 var CalibrationPoints = {};
 var isCalibrated = false;
+var isCalibrated2 = false;
 
 /**
  * Clear the canvas and the calibration button.
  */
 function ClearCanvas() {
   $(".Calibration").hide();
+  $(".Test").hide();
+  $("#Pt21").hide();
+  $("#Pt22").hide();
   var canvas = document.getElementById("plotting_canvas");
   canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
 }
@@ -20,7 +24,7 @@ function PopUpInstruction() {
   ClearCanvas();
   swal({
     title: "Calibración",
-    text: "Por favor, haga click en cada uno de los 13 puntos que apareceran en la pantalla. Debe hacer click 10 veces en cada punto (mirando donde hace click) hasta que se vuelva de color verde. Esto calibrara los movimientos de los ojos.",
+    text: "Por favor, haga click en cada uno de los 9 puntos que apareceran en la pantalla. Debe hacer click 5 veces en cada punto (mirando donde hace click) hasta que se vuelva de color verde. Esto calibrara los movimientos de los ojos.",
     buttons: {
       cancel: false,
       confirm: true
@@ -54,22 +58,22 @@ $(document).ready(function () {
     }
     CalibrationPoints[id]++; // increments values
 
-    if (CalibrationPoints[id] == 10) { //only turn to yellow after 5 clicks
+    if (CalibrationPoints[id] == 5) { //only turn to yellow after 5 clicks
       $(this).css('background-color', 'yellow');
       $(this).prop('disabled', true); //disables the button
       PointCalibrate++;
-    } else if (CalibrationPoints[id] < 10) {
+    } else if (CalibrationPoints[id] < 5) {
       //Gradually increase the opacity of calibration points when click to give some indication to user.
-      var opacity = 0.1 * CalibrationPoints[id] + 0.1;
+      var opacity = 0.2 * CalibrationPoints[id] + 0.2;
       $(this).css('opacity', opacity);
     }
 
     //Show the middle calibration point after all other points have been clicked.
-    if (PointCalibrate == 12) {
+    if (PointCalibrate == 8) {
       $("#Pt5").show();
     }
 
-    if (PointCalibrate >= 13) { // last point is calibrated
+    if (PointCalibrate >= 9) { // last point is calibrated
       //using jquery to grab every element in Calibration class and hide them except the middle point.
       $(".Calibration").hide();
       $("#Pt5").show();
@@ -81,7 +85,7 @@ $(document).ready(function () {
       // notification for the measurement process
       swal({
         title: "Calculando medida de calibración",
-        text: "Por favor no mueva el mouse y mire fijamente al medio del punto por los siguientes 5 segundos. Esto permitira calcular la precisión de las predicciones.",
+        text: "Por favor no mueva el mouse y mire fijamente al medio del punto por los siguientes 5 segundos. Esto peritira calcular la precision de las predicciones.",
         closeOnEsc: false,
         allowOutsideClick: false,
         closeModal: true
@@ -108,12 +112,32 @@ $(document).ready(function () {
             }).then(isConfirm => {
               if (isConfirm) {
                 //clear the calibration & hide the last middle button
-                setupStream();
-                ClearCanvas();
-                sleep(8000).then(() => {
-                  isCalibrated = true;
-                })
+                swal({
+                  title: "¿Test de imagen o Web?",
+                  allowOutsideClick: false,
+                  buttons: {
+                    cancel: "Web",
+                    confirm: "Imagen",
+                  }
+                }).then(isConfirm => {
+                  if (isConfirm) {
+                    webgazer.showVideo(false).showFaceOverlay(false).showFaceFeedbackBox(false);
+                    setupStream();
+                    ClearCanvas();
+                    sleep(8000).then(() => {
+                      isCalibrated = true;
 
+                    })
+                  } else {
+                    webgazer.showVideo(false).showFaceOverlay(false).showFaceFeedbackBox(false);
+                    setupStream();
+                    ClearCanvas();
+                    ShowTestPage();
+                    sleep(8000).then(() => {
+                      isCalibrated2 = true;
+                    })
+                  }
+                })
 
               } else {
                 //use restart function to restart the calibration
@@ -134,7 +158,7 @@ $(document).ready(function () {
  */
 function ShowCalibrationPoint() {
   $(".Calibration").show();
-  $("#Pt5").hide(); // initially hides the middle button
+  $("#Pt5").hide(); //hinitially hides the middle button
 }
 
 /**
@@ -148,6 +172,13 @@ function ClearCalibration() {
 
   CalibrationPoints = {};
   PointCalibrate = 0;
+}
+
+function ShowTestPage() {
+  $(".Test").show();
+  $("#Pt21").show();
+  $("#Pt22").show();
+  $("#Pt20").hide();
 }
 
 // sleep function because java doesn't have one, sourced from http://stackoverflow.com/questions/951021/what-is-the-javascript-version-of-sleep
