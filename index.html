@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=utf-8">
+  <TITLE>Eyetracking Univalle</TITLE>
+  <link rel="stylesheet" type="text/css" href="./css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha256-YLGeXaapI0/5IgZopewRJcFXomhRMlYYjugPLSyNjTY=" crossorigin="anonymous" />
+  <script async type="text/javascript" src="./webgazer.js"></script>
+  <style>
+    #testImage {
+      background-image: url('');
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      width: 100%;
+    }
+  </style>
+</head>
+
+<body LANG="en-US" LINK="#0000ff" DIR="LTR" id="testImage">
+  <div class="d-flex justify-content-end">
+    <p id="Accuracy">
+      <a href="#">Not Yet Calibrate</a>
+    </p>
+    <a href="#" class="btn-sm" onclick="Restart()">Recalibrate</a>
+    <a href="#" class="btn-sm" onclick="saveGaze(gazeData)">Save</a>
+    <a href="#" class="btn-sm download-video " onclick="">Descargar Video</a>
+    <input id="Pt21" type="url" id="link">
+    <input id="Pt22" class="btn-sm" type="button" id="backImage" value="Cargar Link" onclick="readLink()">
+    <input id="Pt20" class="btn-sm" type="file" id="backImage" onchange="readURL(this);">
+  </div>
+
+  <canvas id="plotting_canvas" width="500" height="500" style="cursor:crosshair;position:fixed;z-index: 9;"></canvas>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"
+    integrity="sha256-KsRuvuRtUVvobe66OFtOQfjP8WA2SzYsmm4VPfMnxms=" crossorigin="anonymous"></script>
+
+  <script src="./js/main.js"></script>
+  <script src="./js/calibration.js"></script>
+  <script src="./js/precision_calculation.js"></script>
+  <script src="./js/precision_store_points.js"></script>
+
+  <!-- Calibration points -->
+  <div class="calibrationDiv">
+    <input type="button" class="Calibration" id="Pt1"></input>
+    <input type="button" class="Calibration" id="Pt2"></input>
+    <input type="button" class="Calibration" id="Pt3"></input>
+    <input type="button" class="Calibration" id="Pt4"></input>
+    <input type="button" class="Calibration" id="Pt5"></input>
+    <input type="button" class="Calibration" id="Pt6"></input>
+    <input type="button" class="Calibration" id="Pt7"></input>
+    <input type="button" class="Calibration" id="Pt8"></input>
+    <input type="button" class="Calibration" id="Pt9"></input>
+    <img id="blah" src="" alt="your image" />
+  </div>
+
+  <div>
+    <iframe id="Pt80" class="Test" src=""
+      style="position:fixed; top: 35px; left:0; bottom:0; right:0; width:100%; height:100%; border:none; padding:0; overflow:hidden; z-index:9; "
+      width="100%" height="100%"></iframe>
+  </div>
+
+  <!-- Modal -->
+  <div id="helpModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-footer">
+          <button id="closeBtn" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" onclick="Restart()">Calibrate</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <script>
+    document.getElementById('backImage').addEventListener('change', readURL, true);
+    function readURL() {
+      var file = document.getElementById("backImage").files[0];
+      var reader = new FileReader();
+      reader.onloadend = function () {
+        document.getElementById('testImage').style.backgroundImage = "url(" + reader.result + ")";
+      }
+      if (file) {
+        reader.readAsDataURL(file);
+      } else {
+      }
+    }
+  </script>
+
+  <script>
+    function readLink() {
+      var link = document.getElementById('Pt21').value;
+      document.getElementById('Pt80').src = link;
+    }
+  </script>
+  <!-- Latest compiled JavaScript -->
+  <script src="./js/resize_canvas.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha256-CjSoeELFOcH0/uxWu6mC/Vlrc1AARqbm/jiiImDGV3s=" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
