@@ -1,1 +1,0 @@
-Edit calibration.js at line 94 to modify the accuracy.
